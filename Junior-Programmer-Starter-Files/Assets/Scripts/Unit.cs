@@ -26,7 +26,10 @@ public abstract class Unit : MonoBehaviour,
 
     private void Start()
     {
-
+        if(MainManager.Instance != null) //fetching from main manager, the color selected and assigning it to the forklift
+        {
+            SetColor(MainManager.Instance.TeamColor); // predefined function set color
+        }
     }
 
     void SetColor(Color c)
