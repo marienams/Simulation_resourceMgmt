@@ -17,9 +17,13 @@ public class MainManager : MonoBehaviour
             return;
         }
 
+
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        LoadColor();
     }
+
+
     [System.Serializable]
     class SaveData      //class that will store color
     {
@@ -33,5 +37,18 @@ public class MainManager : MonoBehaviour
         string json = JsonUtility.ToJson(inst);
 
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+    }
+
+    public void LoadColor()
+    {
+        string path = Application.persistentDataPath + "/savefile.json";
+        if (File.Exists(path))
+        {
+            Debug.Log("You got a file");
+            string json = File.ReadAllText(path);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+
+            TeamColor = data.teamColor;
+        }
     }
 }
